@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "dev": "npm run build && concurrently -k \"node --env-file-if-exists=.env server/index.js\" \"vite preview --configLoader runner --host 127.0.0.1 --port 5173\"",
+    "start": "node --env-file-if-exists=.env server/index.js",
     "server": "node --env-file-if-exists=.env server/index.js",
     "build": "vite build --configLoader runner",
     "preview": "vite preview --configLoader runner --host 127.0.0.1",
