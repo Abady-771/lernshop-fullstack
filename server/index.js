@@ -1,4 +1,8 @@
 import { randomBytes } from 'node:crypto';
+import { existsSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import express from 'express';
 import mongoose from 'mongoose';
 import { createApp } from './app.js';
 import { seedProducts } from './models.js';
@@ -15,8 +19,19 @@ if (process.env.MONGODB_URI) {
 }
 
 const secret = process.env.JWT_SECRET || randomBytes(32).toString('hex');
-const server = createApp(secret, store).listen(port, '127.0.0.1', () => {
-  console.log(`Lernshop-API: http://127.0.0.1:${port}/api/health`);
+const app = createApp(secret, store);
+const distPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+
+if (existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.use((req, res, next) => {
+    if (req.method !== 'GET' || req.path.startsWith('/api/')) return next();
+    return res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
+const server = app.listen(port, '0.0.0.0', () => {
+  console.log(`Lernshop läuft auf Port ${port}.`);
   if (!process.env.MONGODB_URI) console.log('Lokaler Lernmodus: Daten werden beim Neustart zurückgesetzt.');
 });
 
