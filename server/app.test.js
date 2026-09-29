@@ -56,3 +56,35 @@ test('registration, protected cart, demo checkout and order history', async () =
   assert.equal((await api('/orders', 'GET', undefined, token)).data.orders.length, 1);
   assert.equal((await api('/orders', 'POST', undefined, token)).status, 400);
 });
+
+test('health check and invalid login token', async () => {
+  const health = await api('/health');
+  assert.equal(health.status, 200);
+  assert.deepEqual(health.data, { status: 'ok' });
+
+  const profile = await api('/me', 'GET', undefined, 'not-a-valid-token');
+  assert.equal(profile.status, 401);
+  assert.equal(profile.data.error, 'Sitzung abgelaufen. Bitte erneut anmelden.');
+});
+
+test('each user has a separate cart', async () => {
+  const first = await api('/auth/register', 'POST', {
+    name: 'Erste Person',
+    email: 'first@example.org',
+    password: 'long-password-123',
+  });
+  const second = await api('/auth/register', 'POST', {
+    name: 'Zweite Person',
+    email: 'second@example.org',
+    password: 'long-password-456',
+  });
+  const products = await api('/products');
+  const product = products.data.products[0];
+
+  await api(`/cart/items/${product.id}`, 'PUT', { quantity: 1 }, first.data.token);
+  const firstCart = await api('/cart', 'GET', undefined, first.data.token);
+  const secondCart = await api('/cart', 'GET', undefined, second.data.token);
+
+  assert.equal(firstCart.data.items.length, 1);
+  assert.equal(secondCart.data.items.length, 0);
+});
