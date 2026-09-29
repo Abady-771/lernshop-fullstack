@@ -2,6 +2,8 @@
 
 Dieses Projekt habe ich gebaut, um React und Node.js praktisch zu üben. Es ist kein fertiger Online-Shop, sondern ein Lernprojekt.
 
+![Startseite des Lernshops](lernshop-preview.png)
+
 ## Was funktioniert?
 
 - Produkte anzeigen, suchen und nach Kategorien filtern
@@ -11,6 +13,17 @@ Dieses Projekt habe ich gebaut, um React und Node.js praktisch zu üben. Es ist 
 - Bestellungen wieder anzeigen
 
 Es gibt keine echte Bezahlung und keine echten Kundendaten.
+
+## So ist das Projekt aufgebaut
+
+```mermaid
+flowchart LR
+  A[React-Oberfläche] -->|API-Anfragen| B[Express-Server]
+  B --> C[(Testdaten im Speicher)]
+  B -. optional .-> D[(MongoDB)]
+```
+
+Die Oberfläche und die API laufen getrennt. Ohne eine MongoDB-Verbindung benutzt der Server Testdaten im Arbeitsspeicher.
 
 ## Verwendet
 
@@ -38,7 +51,10 @@ Danach im Browser öffnen:
 
 ```powershell
 npm test
+npm run build
 ```
+
+Die Tests prüfen unter anderem Registrierung, Login, geschützte Routen, getrennte Warenkörbe und eine Testbestellung.
 
 ## Was ich dabei gelernt habe
 
