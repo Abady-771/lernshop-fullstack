@@ -1,53 +1,47 @@
-# Lernshop – Full-Stack-Übungsprojekt
+# Mein Lernshop
 
-Ein kleiner Demoshop für eine Bewerbung um eine Ausbildung als Fachinformatiker/in für Anwendungsentwicklung. Die Oberfläche ist mit **React, Vite, React Router, Context API und MUI** gebaut. Die API nutzt **Node.js und Express**; für die Speicherung gibt es einen sofort nutzbaren Lernmodus im Arbeitsspeicher und einen optionalen **MongoDB/Mongoose**-Modus. Registrierung und Login verwenden **bcrypt** für Passwort-Hashes und **JWT** für die Sitzung.
+Dieses Projekt habe ich gebaut, um React und Node.js praktisch zu üben. Es ist kein fertiger Online-Shop, sondern ein Lernprojekt.
 
-## Lokal starten
+## Was funktioniert?
 
-Voraussetzung: Node.js 20.19+ oder 22.12+ und eine Internetverbindung für `npm install`. Unter Windows im Projektordner:
+- Produkte anzeigen, suchen und nach Kategorien filtern
+- Registrierung und Login
+- Warenkorb bearbeiten
+- Eine Testbestellung anlegen
+- Bestellungen wieder anzeigen
+
+Es gibt keine echte Bezahlung und keine echten Kundendaten.
+
+## Verwendet
+
+- React und Vite für die Oberfläche
+- Node.js und Express für die API
+- JWT für den Login
+- MongoDB kann optional benutzt werden
+
+Ohne MongoDB läuft das Projekt mit Testdaten im Arbeitsspeicher. So kann man es einfacher ausprobieren.
+
+## Starten
+
+Benötigt werden Node.js 20.19 oder neuer und npm.
 
 ```powershell
 npm install
 npm run dev
 ```
 
-Öffne `http://127.0.0.1:5173`. Der API-Server läuft auf `http://127.0.0.1:3001`. Ohne `MONGODB_URI` läuft der Lernmodus direkt; seine Testdaten werden beim Neustart zurückgesetzt.
+Danach im Browser öffnen:
 
-`npm run dev` erstellt zunächst die aktuelle Oberfläche und startet dann beide Server. Nach Änderungen am React-Code den Befehl neu starten, damit die Oberfläche neu gebaut wird.
+`http://127.0.0.1:5173`
 
-Für eine eigene MongoDB eine `.env` aus `.env.example` erstellen und `MONGODB_URI` sowie `JWT_SECRET` setzen. `.env` darf nicht veröffentlicht werden. Der MongoDB-Modus braucht eine erreichbare Datenbank und wurde hier mangels lokaler Datenbank nicht im Integrationstest ausgeführt.
-
-## Was du ausprobieren kannst
-
-1. Produkte nach Kategorien filtern und über den Produkttitel suchen.
-2. Ein Konto registrieren; ein Passwort mit mindestens acht Zeichen wählen.
-3. Produkte in den Warenkorb legen, Mengen ändern und Artikel entfernen.
-4. Eine **Testbestellung** erstellen und sie unter „Bestellungen“ ansehen.
-
-Es gibt **keine echte Bezahlung, Lieferung oder Lagerreservierung**. Die Demo ist nicht für echte Kundendaten oder einen öffentlichen Shop gedacht. Es gibt auch keine Produktverwaltung in der Oberfläche; die Beispieldaten stehen in `server/models.js`.
-
-## Aufbau
-
-| Bereich | Datei | Zweck |
-|---|---|---|
-| React-Oberfläche | `src/main.jsx` | Seiten, Navigation, Formulare, Context und API-Aufrufe |
-| Gestaltung | `src/styles.css` | Responsives Layout und Produktkarten |
-| API | `server/app.js` | Registrierung, Login, Produktliste, Warenkorb, Bestellungen |
-| Datenmodelle | `server/models.js` | MongoDB-Schemas für User, Product, Cart, Order und Beispieldaten |
-| Speicher | `server/store.js` | Lernmodus im Arbeitsspeicher und MongoDB-Anbindung |
-| Start | `server/index.js` | Wahl des Speichers und Express-Server |
-
-Die API besitzt `GET /api/products`, `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/cart`, `PUT /api/cart/items/:productId`, `DELETE /api/cart/items/:productId`, `POST /api/orders` und `GET /api/orders`. Geschützte Routen benötigen `Authorization: Bearer <JWT>`.
-
-## Prüfen
+## Testen
 
 ```powershell
 npm test
-npm run build
 ```
 
-Die Tests prüfen Registrierung, Login, ungültige Eingaben, Warenkorb und Testbestellung im sofort nutzbaren Lernmodus. MongoDB benötigt für einen Live-Test eine eigene Datenbankverbindung.
+## Was ich dabei gelernt habe
 
-## Projektstatus
+Bei diesem Projekt habe ich geübt, wie eine React-Oberfläche mit einer eigenen API zusammenarbeitet. Außerdem habe ich mich mit Login, Formularen, einem Warenkorb und einfachen Tests beschäftigt.
 
-Die lokal ausgeführten Tests decken Registrierung, Login, Warenkorb und Demo-Bestellungen ab. Der optionale MongoDB-Modus braucht eine eigene Datenbankverbindung und wurde hier nicht im Integrationstest ausgeführt.
+Das Projekt ist noch eine Übung und kann später weiter verbessert werden.
