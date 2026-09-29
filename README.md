@@ -2,7 +2,7 @@
 
 Dieses Projekt habe ich gebaut, um React und Node.js praktisch zu üben. Es ist kein fertiger Online-Shop, sondern ein Lernprojekt.
 
-![Startseite des Lernshops](lernshop-preview.png)
+<img width="1135" height="1780" alt="Startseite des Lernshops" src="https://github.com/user-attachments/assets/c5b12f1d-a051-46d3-9d8c-57d1b79b36d2" />
 
 ## Was funktioniert?
 
