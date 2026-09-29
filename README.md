@@ -47,6 +47,16 @@ Danach im Browser öffnen:
 
 `http://127.0.0.1:5173`
 
+## Für eine Veröffentlichung
+
+Nach `npm run build` kann der Express-Server die gebaute Oberfläche zusammen mit der API ausliefern:
+
+```powershell
+npm start
+```
+
+Der Server benutzt automatisch den Port aus der Umgebungsvariable `PORT`. Für eine öffentliche Installation sollte außerdem ein eigenes `JWT_SECRET` gesetzt werden.
+
 ## Testen
 
 ```powershell
